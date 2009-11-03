@@ -1,0 +1,7 @@
+inherit gnome2
+
+DESCRIPTION="GNOME Keyboard Switcher plugins"
+HOMEPAGE="http://gswitchit.sourceforge.net/"
+
+PATCH_URI="1.0-libtool.patch
+           1.0-gnutls.patch"

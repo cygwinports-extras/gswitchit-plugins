@@ -1,0 +1,4 @@
+category: Gnome
+requires: GConf2 libcairo2 libgcc1 libgconf2_4 libglib2.0_0 libgnome2_0 libgnomekbd4 libgtk2.0_0 libintl8 libpango1.0_0 librsvg2_2 libsoup2.4_1 libxklavier15 perl
+sdesc: "GNOME keyboard configuration applet plugins"
+ldesc: "GNOME keyboard configuration applet plugins"

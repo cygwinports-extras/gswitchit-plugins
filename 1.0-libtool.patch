@@ -1,0 +1,171 @@
+--- origsrc/gswitchit-plugins-1.0/anim/Makefile.am	2009-05-30 10:11:50.000000000 -0500
++++ src/gswitchit-plugins-1.0/anim/Makefile.am	2009-11-02 18:58:39.943112100 -0600
+@@ -1,14 +1,15 @@
+-plugin_cFLAGS = -I$(top_srcdir) \
++INCLUDES = -I$(top_srcdir) \
+            $(LINKED_GNOME_CFLAGS) \
+            -DG_LOG_DOMAIN=\"GSwitchIt\" \
+            -DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
+-           -I../intl -I.. -I$(top_srcdir)/intl \
+            -DUI_DIR=\""$(uidir)"\" \
+            $(OTHER_CFLAGS)
+ 
+-plugin_ldFLAGS = $(LINKED_GNOME_LIBS) $(LIBGNUTLS_LIBS)
++plugin_LTLIBRARIES = anim.la
+ 
+-plugin_DATA = anim.so
++anim_la_SOURCES = anim.c
++anim_la_LDFLAGS = -module -avoid-version -no-undefined
++anim_la_LIBADD  = $(LINKED_GNOME_LIBS)
+ 
+ uidir   = $(UI_DIR)
+ ui_DATA = anim.ui 
+--- origsrc/gswitchit-plugins-1.0/configure.in	2009-05-30 11:09:43.000000000 -0500
++++ src/gswitchit-plugins-1.0/configure.in	2009-11-02 18:55:27.251576200 -0600
+@@ -29,7 +29,7 @@ AC_ISC_POSIX
+ AC_HEADER_STDC
+ AM_PROG_LIBTOOL
+ 
+-PKG_CHECK_MODULES(LINKED_GNOME, gdk-pixbuf-2.0 gconf-2.0 gmodule-2.0 libgnomeui-2.0 libgnomekbd >= 2.18.0 libsoup-2.4 cairo librsvg-2.0)
++PKG_CHECK_MODULES(LINKED_GNOME, gdk-pixbuf-2.0 gconf-2.0 gmodule-2.0 libgnomeui-2.0 libgnomekbdui >= 2.18.0 libsoup-2.4 cairo librsvg-2.0)
+ 
+ AC_SUBST(LINKED_GNOME_CFLAGS)
+ AC_SUBST(LINKED_GNOME_LIBS)
+--- origsrc/gswitchit-plugins-1.0/custlbls/Makefile.am	2009-05-29 10:57:23.000000000 -0500
++++ src/gswitchit-plugins-1.0/custlbls/Makefile.am	2009-11-02 18:58:39.958712200 -0600
+@@ -1,12 +1,15 @@
+-plugin_cFLAGS = -I$(top_srcdir) \
++INCLUDES = -I$(top_srcdir) \
+            $(LINKED_GNOME_CFLAGS) \
+            -DG_LOG_DOMAIN=\"GSwitchIt\" \
+            -DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
+-           -I../intl -I.. -I$(top_srcdir)/intl \
+            -DUI_DIR=\""$(uidir)"\" \
+            $(OTHER_CFLAGS)
+ 
+-plugin_DATA = custlbls.so
++plugin_LTLIBRARIES = custlbls.la
++
++custlbls_la_SOURCES = custlbls.c
++custlbls_la_LDFLAGS = -module -avoid-version -no-undefined
++custlbls_la_LIBADD  = $(LINKED_GNOME_LIBS)
+ 
+ uidir   = $(UI_DIR)
+ ui_DATA = custlbls.ui
+--- origsrc/gswitchit-plugins-1.0/flags/Makefile.am	2009-05-29 10:57:09.000000000 -0500
++++ src/gswitchit-plugins-1.0/flags/Makefile.am	2009-11-02 18:58:39.958712200 -0600
+@@ -2,18 +2,19 @@ if MAINTAINER_MODE
+   LOCALURLDEF = -DLOCALURL=true
+ endif
+ 
+-plugin_cFLAGS = -I$(top_srcdir) \
++INCLUDES = -I$(top_srcdir) \
+            $(LINKED_GNOME_CFLAGS) \
+            -DG_LOG_DOMAIN=\"GSwitchIt\" \
+            -DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
+-           -I../intl -I.. -I$(top_srcdir)/intl \
+            -DUI_DIR=\""$(uidir)"\" \
+            $(LOCALURLDEF) \
+            $(OTHER_CFLAGS)
+ 
+-plugin_ldFLAGS = $(LINKED_GNOME_LIBS) $(LIBGNUTLS_LIBS)
++plugin_LTLIBRARIES = flags.la
+ 
+-plugin_DATA = flags.so
++flags_la_SOURCES = flags.c
++flags_la_LDFLAGS = -module -avoid-version -no-undefined
++flags_la_LIBADD  = $(LINKED_GNOME_LIBS)
+ 
+ uidir   = $(UI_DIR)
+ ui_DATA = flags.ui flags.pl
+--- origsrc/gswitchit-plugins-1.0/highlight/Makefile.am	2009-05-29 10:56:22.000000000 -0500
++++ src/gswitchit-plugins-1.0/highlight/Makefile.am	2009-11-02 18:58:39.974312200 -0600
+@@ -1,12 +1,15 @@
+-plugin_cFLAGS = -I$(top_srcdir) \
++INCLUDES = -I$(top_srcdir) \
+            $(LINKED_GNOME_CFLAGS) \
+            -DG_LOG_DOMAIN=\"GSwitchIt\" \
+            -DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
+-           -I../intl -I.. -I$(top_srcdir)/intl \
+            -DUI_DIR=\""$(uidir)"\" \
+            $(OTHER_CFLAGS)
+ 
+-plugin_DATA = highlight.so
++plugin_LTLIBRARIES = highlight.la
++
++highlight_la_SOURCES = highlight.c
++highlight_la_LDFLAGS = -module -avoid-version -no-undefined
++highlight_la_LIBADD  = $(LINKED_GNOME_LIBS)
+ 
+ uidir   = $(UI_DIR)
+ ui_DATA = highlight.ui
+--- origsrc/gswitchit-plugins-1.0/plugins.make	2009-05-30 10:30:50.000000000 -0500
++++ src/gswitchit-plugins-1.0/plugins.make	2009-11-02 18:58:39.974312200 -0600
+@@ -1,20 +1 @@
+-#
+-# plugin_DATA should contain the list of plugins (plugin1.so plugin2.so)
+-#
+-                                                                                
+ plugindir = $(libdir)/gnomekbd
+-
+-CFLAGS = $(plugin_cFLAGS)
+-
+-LDFLAGS = $(plugin_ldFLAGS)
+-
+-SUFFIXES = .c .so
+-.c.so:
+-	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) -c $< -o tmp$@.lo
+-	$(LIBTOOL) --mode=link    $(CC) $(CFLAGS) -o libtmp$@.la -rpath $(plugindir) tmp$@.lo $(LIBS) $(LDFLAGS) -module -avoid-version -export-dynamic
+-	@rm -f tmp$@.lo tmp$@.o libtmp$@.la
+-	@cp .libs/libtmp$@.so* $@
+-	@rm -f .libs/libtmp$@.*
+-
+-clean-am distclean-am:
+-	rm -rf $(plugin_DATA) .libs
+--- origsrc/gswitchit-plugins-1.0/sound/Makefile.am	2009-05-30 11:06:38.000000000 -0500
++++ src/gswitchit-plugins-1.0/sound/Makefile.am	2009-11-02 18:58:39.974312200 -0600
+@@ -1,8 +1,7 @@
+-plugin_cFLAGS = -I$(top_srcdir) \
++INCLUDES = -I$(top_srcdir) \
+            $(LINKED_GNOME_CFLAGS) \
+            -DG_LOG_DOMAIN=\"GSwitchIt\" \
+            -DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
+-           -I../intl -I.. -I$(top_srcdir)/intl \
+            $(OTHER_CFLAGS)
+ 
+ sounds_DATA = group_switch1.wav group_switch2.wav group_switch3.wav group_switch4.wav
+@@ -18,7 +17,11 @@ EXTRA_DIST = $(sounds_DATA) \
+              $(soundlist_in_files) \
+              sound.c
+         
+-plugin_DATA = sound.so
++plugin_LTLIBRARIES = sound.la
++
++sound_la_SOURCES = sound.c
++sound_la_LDFLAGS = -module -avoid-version -no-undefined
++sound_la_LIBADD  = $(LINKED_GNOME_LIBS)
+ 
+ clean-local:
+ 	rm -f gswitchit.soundlist
+--- origsrc/gswitchit-plugins-1.0/test/Makefile.am	2009-05-07 10:08:13.000000000 -0500
++++ src/gswitchit-plugins-1.0/test/Makefile.am	2009-11-02 18:58:39.989912200 -0600
+@@ -1,13 +1,16 @@
+-plugin_cFLAGS = -I$(top_srcdir) \
++INCLUDES = -I$(top_srcdir) \
+            $(LINKED_GNOME_CFLAGS) \
+            -DG_LOG_DOMAIN=\"GSwitchIt\" \
+            -DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
+-           -I../intl -I.. -I$(top_srcdir)/intl \
+            $(OTHER_CFLAGS)
+ 
+ EXTRA_DIST = test.c
+         
+-plugin_DATA = test.so
++plugin_LTLIBRARIES = test.la
++
++test_la_SOURCES = test.c
++test_la_LDFLAGS = -module -avoid-version -no-undefined
++test_la_LIBADD  = $(LINKED_GNOME_LIBS)
+ 
+ include ../plugins.make
+ 

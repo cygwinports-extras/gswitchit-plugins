@@ -1,0 +1,11 @@
+--- origsrc/gswitchit-plugins-1.0/configure.in	2009-11-02 18:59:38.396414000 -0600
++++ src/gswitchit-plugins-1.0/configure.in	2009-11-02 19:06:10.035096900 -0600
+@@ -61,7 +61,7 @@ AC_PATH_X
+ AC_SUBST(x_libraries)
+ AC_SUBST(x_includes)
+ 
+-AM_PATH_LIBGNUTLS
++PKG_CHECK_MODULES(LIBGNUTLS, gnutls)
+ 
+ AC_OUTPUT([Makefile
+ po/Makefile.in
